@@ -16,24 +16,17 @@ const UserSchema = new mongoose.Schema({
     },
     role:{
         type:String,
-        enum:["admin","student","staff","security"],
+        enum:["admin","student","staff"],
     },
     password:{
         type:String,
-        required:true,
+        required:false,
         minlength:8,
-        select:false
+        select:false,
+        default: null
     },
-    passwordConfirm:{
-        type:String,
-        required:true,
-        validate:{
-            validator: function(el) {
-                return el=== this.password
-                },
-                message: 'Passwords do not match',
-            },
-    },
+    otp: { type: String,}, // Stores OTP
+    otpExpires: { type: Date,}, // OTP expiration
 
     active:{
         type:Boolean,
@@ -42,25 +35,18 @@ const UserSchema = new mongoose.Schema({
     }
 })
 UserSchema.pre('save', async function (next) {
-    if (!this.isModified("password")) return next()
-    this.password = await bcrypt.hash(this.password, 12);
-    this.passwordConfirm = undefined
-    next()
-  });
-  
-  UserSchema.pre('findOneAndUpdate', async function (next) {
-    const update = this.getUpdate();
-    if (update.password !== '' &&
-    update.password !== undefined &&
-    update.password == update.passwordConfirm) {
-    // Hash the password with cost of 12
-    this.getUpdate().password = await bcrypt.hash(update.password, 12)
-    // // Delete passwordConfirm field
-    update.passwordConfirm = undefined
-    next()
-    }else
-    next()
-    })
+    // Only hash password if it's being modified or is being set
+    if (this.password && this.isModified('password')) {
+        this.password = await bcrypt.hash(this.password, 12);
+    }
+    next();
+});
+
+UserSchema.methods.correctPassword = async function (
+    candidatePassword,
+    userPassword) {
+    return await bcrypt.compare(candidatePassword, userPassword);
+    };
   
 const User = mongoose. model('User',UserSchema)
 module.exports = User;
