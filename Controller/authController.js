@@ -66,12 +66,5 @@ exports.login = async (req,res, next) => {
 
 
 
-exports.bulkRegister = async (req, res) => {
-    try {
-        const users = req.body; // Expecting [{name, email, role}, ...]
-        const createdUsers = await User.insertMany(users);
-        res.status(201).json({ status: "success", data: createdUsers });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-};
+
+
