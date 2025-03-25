@@ -1,6 +1,11 @@
 const User = require ('../Model/userModel')
 const jwt = require('jsonwebtoken')
 const AppError = require ('../utils/appError')
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+
+
+
 
 const signToken = (id) => {
     return jwt.sign({id}, process.env.JWT_SECRET,{
@@ -27,16 +32,73 @@ const createSendToken = (user, statusCode, res) => {
     })
 
 }
+const generateOTP = () => {
+    return crypto.randomInt(100000, 999999).toString();
+  };
 
+  const sendOTPEmail = async (email, otp) => {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail', // e.g., 'gmail'
+      auth: {
+        user: 'kuensw@gmail.com',
+        pass: 'qmii uzrb pahl mkxy',
+      },
+    });
+  
+    const mailOptions = {
+      from: 'kuensw@gmail.com',
+      to: email,
+      subject: 'Your OTP Code',
+      text: `Your OTP code is ${otp}. It will expire in 5 minutes.Ones the otp is verified, it will be Your default password`,
+    };
+  
+    await transporter.sendMail(mailOptions);
+  };
 
-exports.signup = async (req,res,next) => {
+  exports.register = async (req, res) => {
+    const { email, otp } = req.body;  // OTP is optional, used for verification
+
     try {
-        const newUser = await User.create(req.body)
-        createSendToken(newUser,201,res)
-    }catch(err){
-        res.status(500).json({error : err.message})
+        let user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // ✅ Step 1: If no OTP is provided, generate and send OTP
+        if (!otp) {
+            const generatedOTP = generateOTP();
+            user.otp = generatedOTP;
+            user.otpExpires = Date.now() + 5 * 60 * 1000; // 5 minutes expiry
+            await user.save();
+
+            await sendOTPEmail(email, generatedOTP);
+
+            return res.json({ message: "OTP sent successfully" });
+        }
+
+        // ✅ Step 2: If OTP is provided, verify it
+        if (Date.now() > user.otpExpires) {
+            return res.status(400).json({ message: "OTP expired. Request a new one." });
+        }
+
+        if (user.otp !== otp) {
+            return res.status(400).json({ message: "Invalid OTP. Try again." });
+        }
+
+        // ✅ Step 3: If OTP is correct, set it as default password
+        user.password = await bcrypt.hash(otp, 12);
+        user.otp = undefined;
+        user.otpExpires = undefined;
+        await user.save();
+
+        return res.json({ message: "OTP verified. It has been set as your default password." });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Server error" });
     }
-}
+};
 
 exports.login = async (req,res, next) => {
     try{

@@ -3,12 +3,10 @@ const userController = require ('../Controller/userController')
 const authController = require ('../Controller/authController')
 const router = express.Router()
 
-router.post('/signup', authController.signup)
 router.post('/login', authController.login)
 
 router.post("/bulkUpload", userController.uploadExcel, userController.bulkUploadUsers);
-
-router
+router.post("/register", authController.register)
 .route('/')
 .get(userController.getAllUsers)
 .post(userController.createUser)
