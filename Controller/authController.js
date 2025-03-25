@@ -65,7 +65,6 @@ const generateOTP = () => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        // ✅ Step 1: If no OTP is provided, generate and send OTP
         if (!otp) {
             const generatedOTP = generateOTP();
             user.otp = generatedOTP;
@@ -77,7 +76,6 @@ const generateOTP = () => {
             return res.json({ message: "OTP sent successfully" });
         }
 
-        // ✅ Step 2: If OTP is provided, verify it
         if (Date.now() > user.otpExpires) {
             return res.status(400).json({ message: "OTP expired. Request a new one." });
         }
@@ -86,7 +84,6 @@ const generateOTP = () => {
             return res.status(400).json({ message: "Invalid OTP. Try again." });
         }
 
-        // ✅ Step 3: If OTP is correct, set it as default password
         user.password = await bcrypt.hash(otp, 12);
         user.otp = undefined;
         user.otpExpires = undefined;
