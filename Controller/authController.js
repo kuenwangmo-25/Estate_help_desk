@@ -3,7 +3,8 @@ const jwt = require('jsonwebtoken')
 const AppError = require ('../utils/appError')
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-
+const bcrypt = require('bcryptjs');
+const { promisify } = require('util');
 
 
 
@@ -56,7 +57,7 @@ const generateOTP = () => {
   };
 
   exports.register = async (req, res) => {
-    const { email, otp } = req.body;  // OTP is optional, used for verification
+    const { email, otp } = req.body;  
 
     try {
         let user = await User.findOne({ email });
@@ -68,11 +69,10 @@ const generateOTP = () => {
         if (!otp) {
             const generatedOTP = generateOTP();
             user.otp = generatedOTP;
-            user.otpExpires = Date.now() + 5 * 60 * 1000; // 5 minutes expiry
+            user.otpExpires = Date.now() + 5 * 60 * 1000; 
             await user.save();
 
             await sendOTPEmail(email, generatedOTP);
-
             return res.json({ message: "OTP sent successfully" });
         }
 
@@ -85,6 +85,10 @@ const generateOTP = () => {
         }
 
         user.password = await bcrypt.hash(otp, 12);
+        console.log("\n=== DEBUG REGISTER ===");
+        console.log("OTP before hashing:", otp);
+        console.log("Hashed OTP as password:", user.password);  // 🛠 Debugging step
+
         user.otp = undefined;
         user.otpExpires = undefined;
         await user.save();
@@ -97,33 +101,93 @@ const generateOTP = () => {
     }
 };
 
-exports.login = async (req,res, next) => {
+exports.login = async (req, res, next) => {
+  try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+          return res.status(400).json({ message: "Please provide an email and password!" });
+      }
+
+      const user = await User.findOne({ email }).select('+password');
+      if (!user) {
+          return res.status(401).json({ message: "Incorrect email or password!" });
+      }
+
+      const isCorrect = await bcrypt.compare(password, user.password);
+      if (!isCorrect) {
+          return res.status(401).json({ message: "Incorrect email or password!" });
+      }
+
+      createSendToken(user, 200, res);
+  } catch (err) {
+      console.error("Error in login:", err);
+      res.status(500).json({ message: "Server error!" });
+  }
+};
+
+
+exports.adminlogin = async (req, res) => {
     try{
-        const {email, password} = req.body
-        if (!email || !password) {
-            return next(new AppError('Please provide an email and password!', 400))
-        }
-        const user = await User.findOne({email}).select('+password')
-        // const correct = await User.correctPassword(password, user.password)
+        const { email, password } = req.body;
 
-        if (!user || !(await user.correctPassword(password, user.password))) {
-            return next(new AppError('Incorrect email or password!', 401))
-        }
-        const correct = await user.correctPassword(password,user.password)
-
-        if (!user || !correct){
-            return next(new AppError('Incorrect email or password!', 401))
-        }
-
-        createSendToken(newUser,201,res)
-    }catch(err) {
-        res.status(500).json(new AppError('Please provide an email and password!', 400))
+    const admin = await User.findOne({ email, role: 'admin' }).select('+password');
+    if (!admin) {
+        return res.status(401).json({ message: "Incorrect email or password!" });
     }
+
+    const isCorrect = await bcrypt.compare(password, admin.password);
+    if (!isCorrect) {
+        return res.status(401).json({ message: "Incorrect email or password!" });
+    }
+
+    createSendToken(admin, 200, res);
+
+    }catch (err) {
+        console.error("Error in login:", err);
+        res.status(500).json({ message: "Server error!" });
+    }
+};
+
+
+exports.logout =  (req, res) => {
+    res.cookie('token', '',{
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true,
+    })
+    res.status(200).json({ message: "Logged out successfully!" })
 }
 
-
-
-
-
-
-
+exports.protect = async(req, res, next) => {
+    try{
+        // getting token and check if it is there
+        let token
+        if(
+            req.headers.authorization && req.headers.authorization.startsWith("Bearer")
+        ){
+            token = req.headers.authorization.split(' ')[1]
+        }else if(req.cookies.jwt){
+            token = req.cookies.jwt
+        }
+  
+        if(!token) {
+            return next(
+                new AppError('You are not logged in! Please log in to get access.', 401),
+            )
+        }
+        const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
+  
+        const freshUser= await User.findById(decoded.id)
+        if(!freshUser) {
+            return next(
+                new AppError('The user belonging to this token no longer exist', 401),
+            )
+        }
+        req.user=freshUser
+        next()
+    }
+    catch(err) {
+        res.status(500).json({error: err.message});
+    }
+  }
+  

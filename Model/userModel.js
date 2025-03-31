@@ -35,12 +35,17 @@ const UserSchema = new mongoose.Schema({
     }
 })
 UserSchema.pre('save', async function (next) {
-    // Only hash password if it's being modified or is being set
-    if (this.password && this.isModified('password')) {
-        this.password = await bcrypt.hash(this.password, 12);
+    // Check if password is being set/modified
+    if (this.isModified('password')) {
+        // Ensure the password isn't already hashed
+        const passwordIsHashed = this.password.startsWith("$2b$12$"); // bcrypt hash starts with this
+        if (!passwordIsHashed) {
+            this.password = await bcrypt.hash(this.password, 12);
+        }
     }
     next();
 });
+
 
 UserSchema.methods.correctPassword = async function (
     candidatePassword,

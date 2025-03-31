@@ -96,3 +96,11 @@ exports.findUserByEmail = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+exports.getUserCount = async (req, res) => {
+    try {
+        const count = await User.countDocuments(); // Get total count of users
+        res.status(200).json({ totalUsers: count, status: 'success' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
