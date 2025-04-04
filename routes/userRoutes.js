@@ -10,7 +10,7 @@ router.post("/register", authController.register)
 router.get("/logout",authController.logout)
 
 // Admin
-router.post('/admin-login', authController.adminlogin)
+router.post("/admin-login", authController.adminlogin);
 router.post("/bulkUpload", userController.uploadExcel, userController.bulkUploadUsers);
 router.post("/equipment", equipmentController.createEquipment)
 router.get('/getallequipments', equipmentController.getAllEquipment)
