@@ -53,18 +53,18 @@
               >
             </li>
             <li>
-              <a href="EquipmentRecord.html" class="nav-link scrollto"
+              <a href="viewHospital.html" class="nav-link scrollto"
                 ><i class="fas fa-hospital"></i>
                 <span>Equipment Records</span></a
               >
             </li>
             <li>
-              <a href="Feedback.html" class="nav-link scrollto"
+              <a href="viewDirector.html" class="nav-link scrollto"
                 ><i class="fas fa-user-circle"></i> <span>Feedback</span></a
               >
             </li>
             <li>
-              <a href="Users.html" class="nav-link scrollto"
+              <a href="viewAdm.html" class="nav-link scrollto"
                 ><i class="fas fa-user"></i> <span>Users</span></a
               >
             </li>
@@ -90,42 +90,27 @@
         <div class="container text-left">
           <div class="row align-items-center">
             <div class="col">
-              <h5 style="font-weight: 800">Issue List</h5>
+              <h6 style="font-weight: 800">Dashboard</h6>
             </div>
             <div class="col-auto d-flex align-items-center">
-              <h5 style="font-weight: 800;color: green;">Pending</h5>
+              <div class="search-container">
+                <button type="submit" class="search-button">
+                  <span class="search-icon"><i class="bi bi-search"></i></span>
+                  <span class="search-placeholder">Search...</span>
+                </button>
+              </div>
+              <img
+                src="../assets/img/Capture.PNG"
+                alt="Account"
+                class="rounded-circle"
+                style="width: 30px; height: 30px"
+              />
             </div>
           </div>
 
-          <div class="Detail-content">
-            <div class="row">
-              <h5 class="col-12 mb-4" style="color: orangered;"><b>Name:</b> Jigme Dema</h5>
-              <div class="col-6">
-                <p><b>Email:</b>12210053.gcit@rub.edu.bt</p>
-                <p><b>Member Type:</b>Student</p>
-                <p><b>Contact:</b> 77398819</p>
-                <p><b>Description:</b>Leakage</p>
-              </div>
-              <div class="col-6">
-                <p><b>Date to avail service:</b> 20/05/2025</p>
-                <p><b>Category:</b> Plumbing</p>
-                <p><b>Location:</b> Block P</p>
-              </div>
-            </div>
-            <div class="row">
-              <input type="file">
-            </div>
-            <div class="row">
-              <b class="mb-3" style="color: orangered;">Equipment Used:</b>
-                <p>1.Pipe</p>
-                <p>2.String</p>
-                <p>3.Cement</p>
-
-            </div>
-            <div class="row">
-              <b class="mb-3" style="color: orangered;">Remarks:</b>
-              <input type="textarea" style="height: 200px;border: none;" name="" id="">
-            </div>
+          <div class="Recent-issue">
+            <h6 style="font-weight: 800">Recent reported issues</h6>
+            <div id="student-movement-log"></div>
           </div>
         </div>
       </section>

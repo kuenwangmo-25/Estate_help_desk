@@ -1,209 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Estate Help Desk</title>
-    <meta content="" name="description" />
-    <meta content="" name="keywords" />
 
-    <link href="assets/img/favicon.png" rel="icon" />
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" href="../assets/css/style.css" />
-  </head>
-  <body>
-    <!--  toggle button  -->
-    <i class="bi bi-list mobile-nav-toggle d-block d-md-none"></i>
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Estate Help Desk</title>
+  <meta content="" name="description" />
+  <meta content="" name="keywords" />
 
-    <header id="header">
-      <div class="d-flex flex-column">
-        <div class="profile">
-          <img src="../assets/img/logo.png" alt="No Logo" class="img-fluid" />
-        </div>
-        <nav id="navbar" class="nav-menu navbar">
-          <ul>
-            <li>
-              <a href="dashboard.html" class="nav-link scrollto active"
-                ><i class="fas fa-home"></i> <span>DashBoard</span></a
-              >
-            </li>
-            <li>
-              <a href="IssueList.html" class="nav-link scrollto"
-                ><i class="fas fa-user-md"></i> <span>Issue List</span></a
-              >
-            </li>
-            <li>
-              <a href="viewHospital.html" class="nav-link scrollto"
-                ><i class="fas fa-hospital"></i>
-                <span>Equipment Records</span></a
-              >
-            </li>
-            <li>
-              <a href="viewDirector.html" class="nav-link scrollto"
-                ><i class="fas fa-user-circle"></i> <span>Feedback</span></a
-              >
-            </li>
-            <li>
-              <a href="viewAdm.html" class="nav-link scrollto"
-                ><i class="fas fa-user"></i> <span>Users</span></a
-              >
-            </li>
-            <li>
-              <form method="POST" action="logout.html">
-                <a
-                  href="#"
-                  class="nav-link scrollto"
-                  onclick="event.preventDefault(); this.closest('form').submit();"
-                >
-                  <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
-                </a>
-              </form>
-            </li>
-          </ul>
-        </nav>
+  <link href="assets/img/favicon.png" rel="icon" />
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+  <!--  toggle button  -->
+  <i class="bi bi-list mobile-nav-toggle d-block d-md-none"></i>
+
+  <header id="header">
+    <div class="d-flex flex-column">
+      <div class="profile">
+        <img src="../assets/img/logo.png" alt="No Logo" class="img-fluid" />
       </div>
-    </header>
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li>
+            <a href="dashboard.html" class="nav-link scrollto active"><i class="fas fa-home"></i>
+              <span>DashBoard</span></a>
+          </li>
+          <li>
+            <a href="IssueList.html" class="nav-link scrollto"><i class="fas fa-user-md"></i> <span>Issue
+                List</span></a>
+          </li>
+          <li>
+            <a href="EquipmentRecord.html" class="nav-link scrollto"><i class="fas fa-hospital"></i>
+              <span>Equipment Records</span></a>
+          </li>
+          <li>
+            <a href="Feedback.html" class="nav-link scrollto"><i class="fas fa-user-circle"></i>
+              <span>Feedback</span></a>
+          </li>
+          <li>
+            <a href="Users.html" class="nav-link scrollto"><i class="fas fa-user"></i> <span>Users</span></a>
+          </li>
+          <li>
+            <form method="POST" action="logout.html">
+              <a href="#" class="nav-link scrollto" onclick="event.preventDefault(); this.closest('form').submit();">
+                <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
+              </a>
+            </form>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-    <!--   Content Part -->
-    <main id="main">
-      <section id="hero" class="about">
-        <div class="container text-left">
-          <div class="row align-items-center">
-            <div class="col">
-              <h6 style="font-weight: 800">Dashboard</h6>
-            </div>
-            <div class="col-auto d-flex align-items-center">
-              <div class="search-container">
-                <button type="submit" class="search-button">
-                  <span class="search-icon"><i class="bi bi-search"></i></span>
-                  <span class="search-placeholder">Search...</span>
-                </button>
-              </div>
-              <img
-                src="../assets/img/Capture.PNG"
-                alt="Account"
-                class="rounded-circle"
-                style="width: 30px; height: 30px"
-              />
-            </div>
+  <!--   Content Part -->
+  <main id="main">
+    <section id="hero" class="about">
+      <div class="container text-left">
+        <div class="row align-items-center">
+          <div class="col">
+            <h6 style="font-weight: 800">Dashboard</h6>
           </div>
-
-          <div class="row">
-            <div class="col-md-4">
-              <div
-                class="box"
-                style="background-image: url('assets/img/hospital.jpeg')"
-              >
-                <p>Total Users</p>
-                <h5>450</h5>
-              </div>
+          <div class="col-auto d-flex align-items-center">
+            <div class="search-container">
+              <button type="submit" class="search-button">
+                <span class="search-icon"><i class="bi bi-search"></i></span>
+                <span class="search-placeholder">Search...</span>
+              </button>
             </div>
-
-            <div class="col-md-4">
-              <div
-                class="box"
-                style="background-image: url('assets/img/hospital.jpeg')"
-              >
-                <p>Total Issues</p>
-                <h5>55</h5>
-              </div>
-            </div>
-          </div>
-          <div class="Recent-issue">
-            <h6 style="font-weight: 800">Recent reported issues</h6>
-            <div id="student-movement-log"></div>
+            <img src="../assets/img/Capture.PNG" alt="Account" class="rounded-circle"
+              style="width: 30px; height: 30px" />
           </div>
         </div>
-      </section>
-    </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/main.js"></script>
-    <script>
-      const movements = [
-        {
-          name: "Jigme Dema",
-          membertype: "Student",
-          status: "Pending",
-          email: "12210053.gcit@rub.edu.bt",
-          date: "2025-03-10 08:30",
-        },
-        {
-          name: "Kuenga Wangmo ",
-          membertype: "Student",
-          status: "Pending",
-          email: "12210083.gcit@rub.edu.bt",
-          date: "2025-03-10 12:45",
-        },
-        {
-          name: "Pema yangzom",
-          membertype: "Student",
-          status: "Pending",
-          email: "12210053.gcit@rub.edu.bt",
-          date: "2025-03-11 09:15",
-        },
-        {
-          name: "Jigme Wangmo",
-          membertype: "Staff",
-          status: "Pending",
-          email: "pemawangmo.gcit@rub.edu.bt",
-          date: "2025-03-11 17:00",
-        },
-        {
-          name: "Sonam Wangmo",
-          membertype: "Staff",
-          status: "Pending",
-          email: "sonamwangmo.gcit@rub.edu.bt",
-          date: "2025-03-12 08:00",
-        },
-      ];
+        <div class="row">
+          <div class="col-md-4">
+            <div class="box" style="background-image: url('assets/img/hospital.jpeg')">
+              <p>Total Users</p>
+              <h5>450</h5>
+            </div>
+          </div>
 
-      const container = document.getElementById("student-movement-log");
-      let lastDate = "";
+          <div class="col-md-4">
+            <div class="box" style="background-image: url('assets/img/hospital.jpeg')">
+              <p>Total Issues</p>
+              <h5>55</h5>
+            </div>
+          </div>
+        </div>
+        <div class="Recent-issue">
+          <h6 style="font-weight: 800">Recent reported issues</h6>
+          <div id="student-movement-log"></div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-      movements.forEach((movement) => {
-        const [movementDate, movementTime] = movement.date.split(" ");
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    const movements = [
+      {
+        name: "Jigme Dema",
+        membertype: "Student",
+        status: "Pending",
+        email: "12210053.gcit@rub.edu.bt",
+        date: "2025-03-10 08:30",
+      },
+      {
+        name: "Kuenga Wangmo ",
+        membertype: "Student",
+        status: "Pending",
+        email: "12210083.gcit@rub.edu.bt",
+        date: "2025-03-10 12:45",
+      },
+      {
+        name: "Pema yangzom",
+        membertype: "Student",
+        status: "Pending",
+        email: "12210053.gcit@rub.edu.bt",
+        date: "2025-03-11 09:15",
+      },
+      {
+        name: "Jigme Wangmo",
+        membertype: "Staff",
+        status: "Pending",
+        email: "pema.gcit@rub.edu.bt",
+        date: "2025-03-11 17:00",
+      },
+      {
+        name: "Sonam Wangmo",
+        membertype: "Staff",
+        status: "Pending",
+        email: "sonam.gcit@rub.edu.bt",
+        date: "2025-03-12 08:00",
+      },
+    ];
 
-        if (movementDate !== lastDate) {
-          const dateSeparator = document.createElement("div");
-          dateSeparator.className = "date-separator";
-          dateSeparator.innerHTML = `<span class="date-container">${movementDate}</span>`;
-          container.appendChild(dateSeparator);
-          lastDate = movementDate;
-        }
+    const container = document.getElementById("student-movement-log");
+    let lastDate = "";
 
-        const item = document.createElement("div");
-        item.className = "movement-item";
-        item.innerHTML = `
-        <div class="col-1 text-center"><i class="fas fa-user" style="color: grey;font-size:18px;"></i></div>
+    movements.forEach((movement) => {
+      const [movementDate, movementTime] = movement.date.split(" ");
+
+      if (movementDate !== lastDate) {
+        const dateSeparator = document.createElement("div");
+        dateSeparator.className = "date-separator";
+        dateSeparator.innerHTML = `<span class="date-container">${movementDate}</span>`;
+        container.appendChild(dateSeparator);
+        lastDate = movementDate;
+      }
+
+      const item = document.createElement("div");
+      item.className = "movement-item";
+      item.innerHTML = `
+        <div class="col-2 text-center"><i class="fas fa-user" style="color: rgb(227, 88, 33);font-size:18px;"></i></div>
         <div class="col-3 ">${movement.name}</div>
         <div class="col-2 ">${movement.membertype}</div>
         <div class="col-3 ">${movement.email}</div>
-        <span style="background-color: green; color: white; padding: 5px 15px 7px 15px; border-radius: 100px;font-size:14px">
+        <div class="col-2 "> 
+          <span style="background-color: green; color: white; padding: 5px 15px; border-radius: 100px;font-size:14px">
             ${movement.status}
-            </span>            `;
-        container.appendChild(item);
-      });
-    </script>
-  </body>
+          </span>   </div>
+
+                `;
+      container.appendChild(item);
+    });
+  </script>
+</body>
+
 </html>

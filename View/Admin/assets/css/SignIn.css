@@ -168,7 +168,6 @@
   --bs-link-color: rgb(251.4, 171, 115.2);
   --bs-link-hover-color: rgb(252.12, 187.8, 143.16);
   --bs-link-color-rgb: 251, 171, 115;
-  --bs-link-hover-color-rgb: 252, 188, 143;
   --bs-code-color: rgb(243.6, 145.2, 193.8);
   --bs-highlight-color: #d4d4d8;
   --bs-highlight-bg: rgb(93.6, 71.6, 3.2);
@@ -381,10 +380,7 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  --bs-link-color-rgb: var(--bs-link-hover-color-rgb);
-  text-decoration: none;
-}
+
 
 a:not([href]):not([class]),
 a:not([href]):not([class]):hover {
@@ -483,9 +479,6 @@ button {
   border-radius: 0;
 }
 
-button:focus:not(:focus-visible) {
-  outline: 0;
-}
 
 input,
 button,
