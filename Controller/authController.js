@@ -128,28 +128,44 @@ exports.login = async (req, res, next) => {
 
 
 exports.adminlogin = async (req, res) => {
-    try{
-        const { email, password } = req.body;
-
-    const admin = await User.findOne({ email, role: 'admin' }).select('+password');
-    if (!admin) {
-        return res.status(401).json({ message: "Incorrect email or password!" });
+    try {
+      const { email, password } = req.body;
+  
+      // Check if user exists
+      const user = await User.findOne({ email }).select("+password");
+  
+      if (!user) {
+        return res.status(401).json({ message: "Invalid email or password" });
+      }
+  
+      // Check if the password is correct using bcrypt
+      const isCorrect = await bcrypt.compare(password, user.password);
+      if (!isCorrect) {
+        return res.status(401).json({ message: "Invalid email or password" });
+      }
+  
+      // Generate JWT token
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "1d",
+      });
+  
+      // Send response with token and user details
+      res.status(200).json({
+        status: "success",
+        token,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+        },
+      });
+    } catch (error) {
+      console.error("Login Error:", error);
+      res.status(500).json({ message: "Internal Server Error" });
     }
-
-    const isCorrect = await bcrypt.compare(password, admin.password);
-    if (!isCorrect) {
-        return res.status(401).json({ message: "Incorrect email or password!" });
-    }
-
-    createSendToken(admin, 200, res);
-
-    }catch (err) {
-        console.error("Error in login:", err);
-        res.status(500).json({ message: "Server error!" });
-    }
-};
-
-
+  };
+  
+  
 exports.logout =  (req, res) => {
     res.cookie('token', '',{
         expires: new Date(Date.now() + 10 * 1000),
