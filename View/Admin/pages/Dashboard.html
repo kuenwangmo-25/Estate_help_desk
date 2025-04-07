@@ -77,8 +77,9 @@
                 <span class="search-placeholder">Search...</span>
               </button>
             </div>
-            <img src="../assets/img/Capture.PNG" alt="Account" class="rounded-circle"
-              style="width: 30px; height: 30px" />
+            <a href="Profile.html"> <img src="../assets/img/Capture.PNG" alt="Account" class="rounded-circle"
+              style="width: 30px; height: 30px" /></a>
+           
           </div>
         </div>
 
@@ -134,14 +135,14 @@
         name: "Jigme Wangmo",
         membertype: "Staff",
         status: "Pending",
-        email: "pema.gcit@rub.edu.bt",
+        email: "pemawangmo.gcit@rub.edu.bt",
         date: "2025-03-11 17:00",
       },
       {
         name: "Sonam Wangmo",
         membertype: "Staff",
         status: "Pending",
-        email: "sonam.gcit@rub.edu.bt",
+        email: "sonamwangmo.gcit@rub.edu.bt",
         date: "2025-03-12 08:00",
       },
     ];
@@ -169,7 +170,7 @@
         <div class="col-3 ">${movement.email}</div>
         <div class="col-2 "> 
           <span style="background-color: green; color: white; padding: 5px 15px; border-radius: 100px;font-size:14px">
-            ${movement.status}
+            <a href="IssueDetail.html" style="text-decoration:none;color:white">${movement.status}</a>
           </span>   </div>
 
                 `;
