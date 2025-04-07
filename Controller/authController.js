@@ -85,15 +85,14 @@ const generateOTP = () => {
         }
 
         user.password = await bcrypt.hash(otp, 12);
-        console.log("\n=== DEBUG REGISTER ===");
-        console.log("OTP before hashing:", otp);
-        console.log("Hashed OTP as password:", user.password);  // 🛠 Debugging step
+       
 
         user.otp = undefined;
         user.otpExpires = undefined;
         await user.save();
 
-        return res.json({ message: "OTP verified. It has been set as your default password." });
+        return createSendToken(user, 201, res);
+
 
     } catch (error) {
         console.error(error);
@@ -144,21 +143,9 @@ exports.adminlogin = async (req, res) => {
         return res.status(401).json({ message: "Invalid email or password" });
       }
   
-      // Generate JWT token
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "1d",
-      });
-  
-      // Send response with token and user details
-      res.status(200).json({
-        status: "success",
-        token,
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-        },
-      });
+      createSendToken(user, 200, res);
+
+     
     } catch (error) {
       console.error("Login Error:", error);
       res.status(500).json({ message: "Internal Server Error" });

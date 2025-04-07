@@ -30,17 +30,17 @@
                     <div class="mb-3 position-relative">
                       <label style="font-weight: 500;">
                         OTP will be sent to  
-                        <b style="color: rgb(255, 119, 16);"> admin's Email</b>
+                        <b style="color: rgb(255, 119, 16);"> <b id="email-display"></b></b>
                       </label>
                     </div>
                     <div class="col-10 mb-3 position-relative mx-auto">
                       <i class="fas fa-lock position-absolute " style="top: 50%; left: 20px; transform: translateY(-50%);color: rgb(255, 119, 16);"></i>
-                      <input type="password" class="form-control ps-5" placeholder="OTP" aria-label="Email" aria-describedby="email-addon">
+                      <input type="password" class="form-control ps-5" placeholder="OTP" aria-label="Email" aria-describedby="email-addon" id="otp">
                     </div>
                     <div class="col-10 mb-3 position-relative mx-auto">
                   </div>
                     <div class="text-center">
-                      <a type="button" class="btn w-60 mt-4 mb-0" style="background-color: rgb(255, 119, 16); color: white;" id ="submit">
+                      <a type="button" class="btn w-60 mt-4 mb-0" style="background-color: rgb(255, 119, 16); color: white;" id="verify-otp">
                         Confirm
                       </a>
                     </div>
@@ -68,6 +68,7 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
-</body>
+  <script type="module" src="../js/otp.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script></body>
 
 </html>

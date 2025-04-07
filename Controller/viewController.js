@@ -9,10 +9,10 @@ exports.home = (req,res) => {
 }
 
 exports.emailform = (req,res) => {
-    res.sendFile(path.join(__dirname, '../','View', 'Admin',"pages", 'OTPemail.html'))
+    res.sendFile(path.join(__dirname, '../','View', 'Admin',"pages", 'OTP.html'))
 }
 
 exports.otpform = (req,res) => {
-    res.sendFile(path.join(__dirname, '../','View', 'Admin',"pages", 'OTP.html'))
+    res.sendFile(path.join(__dirname, '../','View', 'Admin',"pages", 'OTPemail.html'))
 }
 

@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-    OTP-Page </title>
+    EMAIL-OTP-Page </title>
   <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800" rel="stylesheet" />
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link id="pagestyle" href="../assets/css/SignIn.css?v=1.1.0" rel="stylesheet" />
@@ -25,7 +25,7 @@
               <div class="card card-plain mt-8">
 
                 <div class="card-body">
-                  <form role="form" class="mx-auto text-center" style="background-color: rgb(245, 245, 245); padding: 40px 30px; border-radius: 10px;">
+                  <form role="form" id="form" class="mx-auto text-center" style="background-color: rgb(245, 245, 245); padding: 40px 30px; border-radius: 10px;">
   
                     <div class="mb-3 position-relative">
                       <label style="font-weight: 500;">
@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-10 mb-3 position-relative mx-auto">
                     <i class="fas fa-lock position-absolute " style="top: 50%; left: 20px; transform: translateY(-50%);color: rgb(255, 119, 16);"></i>
-                    <input type="Email" class="form-control ps-5" placeholder="Email" aria-label="Email" aria-describedby="email-addon"  required="required" >
+                    <input type="Email" class="form-control ps-5" placeholder="Email" aria-label="Email" aria-describedby="email-addon"  required="required" id="email">
                   </div>
                     <div class="text-center">
                       <a type="button" class="btn w-60 mt-4 mb-0" style="background-color: rgb(255, 119, 16); color: white;"  id ="submit">
@@ -66,7 +66,7 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
-  <script type="module" src="../../Admin/js/otp.js"></script>
+  <script type="module" src="../js/otp.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
 
 

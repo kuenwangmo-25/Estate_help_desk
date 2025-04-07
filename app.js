@@ -1,6 +1,6 @@
 const express = require("express");
 const userRouter = require('./routes/userRoutes');
-const viewRouter= require("./routes/viewRoutes")
+const viewRouter= require("./routes/AdminviewRoutes")
 const path = require("path");
 
 
