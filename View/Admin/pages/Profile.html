@@ -18,10 +18,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
+ 
 </head>
 
 <body>
-  <!--  toggle button  -->
   <i class="bi bi-list mobile-nav-toggle d-block d-md-none"></i>
 
   <header id="header">
@@ -32,7 +32,7 @@
       <nav id="navbar" class="nav-menu navbar">
         <ul>
           <li>
-            <a href="dashboard.html" class="nav-link scrollto "><i class="fas fa-home"></i>
+            <a href="dashboard.html" class="nav-link scrollto active"><i class="fas fa-home"></i>
               <span>DashBoard</span></a>
           </li>
           <li>
@@ -40,15 +40,15 @@
                 List</span></a>
           </li>
           <li>
-            <a href="EquipmentRecord.html" class="nav-link scrollto active"><i class="fas fa-hospital"></i>
+            <a href="EquipmentRecord.html" class="nav-link scrollto"><i class="fas fa-hospital"></i>
               <span>Equipment Records</span></a>
           </li>
           <li>
-            <a href="Feedback.html" class="nav-link scrollto"><i class="fas fa-user-circle"></i>
+            <a href="Feedback.html" class="nav-link scrollto "><i class="fas fa-user-circle"></i>
               <span>Feedback</span></a>
           </li>
           <li>
-            <a href="Users.html" class="nav-link scrollto"><i class="fas fa-user"></i> <span>Users</span></a>
+            <a href="Users.html" class="nav-link scrollto "><i class="fas fa-user"></i> <span>Users</span></a>
           </li>
           <li>
             <form method="POST" action="logout.html">
@@ -64,40 +64,37 @@
 
   <!--   Content Part -->
   <main id="main">
-    <section id="hero" class="about">
-      <div class="container text-left">
-        <div class="row align-items-center">
-          <div class="col">
-            <h6 style="font-weight: 800">Dashboard</h6>
-          </div>
-          <div class="col-auto d-flex align-items-center">
-            <div class="search-container">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button"
-                      id="filterButton" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-funnel"></i> Filter
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="filterButton">
-                      <li><a class="dropdown-item" href="#">Pending</a></li>
-                      <li><a class="dropdown-item" href="#">Close</a></li>
-                    </ul>
-                  </div>
+    <section>
+      <div class="container" style="margin-top: 5%;">
+        <h4 class="mb-4">Change Password</h4>
+        <form id="addUserForm mt-4" >
+            <div class="col-md-8 ">
+              <label for="oldpassword" class="form-label">Old Password</label>
+              <input type="text" class="form-control"  required>
             </div>
-           
+          <div class="col-md-8 mt-4">
+            <label for="newpassword" class="form-label">New Password</label>
+            <input type="password" class="form-control" required>
           </div>
+          <div class="col-md-8 mt-4">
+            <label for="confirmpassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control"  required>
+          </div>
+          <div class="col-md-8 mt-4">
+            <button type="button" class="btn btn d-flex align-items-center" >
+                <a class=" px-4" href="AddUser.html" style="text-decoration: none;color: #eee;font-weight: 600;">Confirm</a>
+              </button>          
         </div>
-
-  
-        <div class="main-content">
-         
-        </div>
+          
+        </form>
       </div>
+      
+   
     </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/main.js"></script>
- 
-</body>
 
+</body>
 </html>

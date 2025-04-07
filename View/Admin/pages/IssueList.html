@@ -82,7 +82,7 @@
             </div>
             <button type="button" class="btn btn d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#addEquipmentModal">
               <i class="bi bi-plus mx-2"></i>
-              <span class="me-2">Add Equipment</span>
+              <span class="me-2" style="font-weight: 600;">Add Equipment</span>
             </button>
           </div>
         </div>
@@ -224,8 +224,8 @@
             <div class="col-2 text-center">${movement.membertype}</div>
             <div class="col-2 text-center">${movement.category}</div>
             <div class="col-2">
-            <span style="background-color: green; color: white; padding: 5px 15px ; border-radius: 100px;font-size:14px">
-            ${movement.status}
+            <span style="background-color: green;  padding: 5px 15px ; border-radius: 100px;font-size:14px">
+            <a href="IssueDetail.html" style="text-decoration:none;color: white;">${movement.status}</a>
             </span>
             </div>
             `;

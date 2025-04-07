@@ -18,12 +18,86 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    /* Custom styles for the delete confirmation modal */
+    .delete-confirmation-modal .modal-dialog {
+      display: flex;
+      align-items: center;
+      min-height: calc(100% - 1rem);
+    }
+    
+    .borderless-btn {
+      border: none !important;
+      box-shadow: none !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    
+    .btn-yes {
+      background-color: #dc3545;
+      color: white;
+    }
+    
+    .btn-no {
+      background-color: #28a745;
+      color: white;
+    }
+    
+    .btn-yes:hover {
+      background-color: #c82333;
+      color: white;
+    }
+    
+    .btn-no:hover {
+      background-color: #218838;
+      color: white;
+    }
+    
+    .modal-footer-center {
+      justify-content: center;
+      border-top: none;
+      padding-bottom: 1.5rem;
+    }
+    
+    .modal-content {
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .modal-header {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    
+    .modal-body {
+      padding: 1.5rem 2rem;
+      font-size: 1.1rem;
+    }
+    
+    .movement-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .movement-item:hover {
+      background-color: #f9f9f9;
+    }
+    
+    .movement-item div {
+      padding: 0 8px;
+    }
+  </style>
 </head>
 
 <body>
-  <!--  toggle button  -->
+  <!-- Toggle Button -->
   <i class="bi bi-list mobile-nav-toggle d-block d-md-none"></i>
 
+  <!-- Header -->
   <header id="header">
     <div class="d-flex flex-column">
       <div class="profile">
@@ -32,12 +106,10 @@
       <nav id="navbar" class="nav-menu navbar">
         <ul>
           <li>
-            <a href="dashboard.html" class="nav-link scrollto "><i class="fas fa-home"></i>
-              <span>DashBoard</span></a>
+            <a href="Dashboard.html" class="nav-link scrollto"><i class="fas fa-home"></i> <span>DashBoard</span></a>
           </li>
           <li>
-            <a href="IssueList.html" class="nav-link scrollto"><i class="fas fa-user-md"></i> <span>Issue
-                List</span></a>
+            <a href="IssueList.html" class="nav-link scrollto"><i class="fas fa-user-md"></i> <span>Issue List</span></a>
           </li>
           <li>
             <a href="EquipmentRecord.html" class="nav-link scrollto"><i class="fas fa-hospital"></i>
@@ -62,21 +134,283 @@
     </div>
   </header>
 
-  <!--   Content Part -->
+  <!-- Content Part -->
   <main id="main">
     <section id="hero" class="about">
       <div class="container text-left">
+        <div class="row d-flex align-items-end justify-content-end">
+          <div class="col-auto d-flex align-items-end">
+            <button type="button" class="btn btn d-flex align-items-center" >
+              <i class="bi bi-plus mx-2"></i>
+              <a class="me-2" href="AddUser.html" style="text-decoration: none;color: #eee;font-weight: 600;">Add User</a>
+            </button>
+          </div>
+        </div>
 
         <div class="Recent-issue">
-          <h6 style="font-weight: 800">Recent reported issues</h6>
+          <h6 style="font-weight: 800;margin-bottom: 50px;">User List</h6>
+          <div id="student-movement-log"></div>
+
+          <!-- Pagination -->
+          <div class="pagination-container mt-4">
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#">Next</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- Delete Confirmation Modal -->
+  <div class="modal fade delete-confirmation-modal" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          Are you sure you want to delete this user?
+        </div>
+        <div class="modal-footer modal-footer-center">
+          <button type="button" class="btn btn-yes borderless-btn me-3" id="confirmDeleteBtn">Yes</button>
+          <button type="button" class="btn btn-no borderless-btn" data-bs-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Success</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          User deleted successfully!
+        </div>
+        <div class="modal-footer modal-footer-center">
+          <button type="button" class="btn btn-success borderless-btn" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/main.js"></script>
-  
-</body>
+  <script>
+    const movements = [
+      {
+        name: "Jigme Dema",
+        email:"12210034.gcit@rub.edu",
+        membertype: "Student",
+        date: "2025-03-10 08:30",
+      },
+      {
+        name: "Kuenga Wangmo ",
+        email:"12210043.gcit@rub.edu",
+        membertype: "Student",
+        date: "2025-03-10 12:45",
+      },
+      {
+        name: "Pema yangzom",
+        email:"12210044.gcit@rub.edu",
+        membertype: "Student",
+        date: "2025-03-11 09:15",
+      },
+      {
+        name: "Jigme Wangmo",
+        email:"12210033.gcit@rub.edu",
+        membertype: "Staff",
+        date: "2025-03-11 17:00",
+      },
+      {
+        name: "Sonam Wangmo",
+        email:"12210064.gcit@rub.edu",
+        membertype: "Staff",
+        date: "2025-03-12 08:00",
+      },
+      {
+        name: "Jigme Dema",
+        email:"12210034.gcit@rub.edu",
+        membertype: "Staff",
+        date: "2025-03-10 08:30",
+      },
+      {
+        name: "Kuenga Wangmo ",
+        email:"12210043.gcit@rub.edu",
+        membertype: "Student",
+        date: "2025-03-10 12:45",
+      },
+      {
+        name: "Pema yangzom",
+        email:"12210044.gcit@rub.edu",
+        membertype: "Student",
+        date: "2025-03-11 09:15",
+      },
+      {
+        name: "Jigme Wangmo",
+        email:"12210033.gcit@rub.edu",
+        membertype: "Staff",
+        date: "2025-03-11 17:00",
+      },
+      {
+        name: "Sonam Wangmo",
+        email:"12210064.gcit@rub.edu",
+        membertype: "Staff",
+        date: "2025-03-12 08:00",
+      },
+      {
+        name: "Jigme Dema",
+        email:"12210034.gcit@rub.edu",
+        membertype: "Staff",
+        date: "2025-03-10 08:30",
+      },
+      {
+        name: "Kuenga Wangmo ",
+        email:"12210043.gcit@rub.edu",
+        membertype: "Student",
+        date: "2025-03-10 12:45",
+      },
+      {
+        name: "Pema yangzom",
+        email:"12210044.gcit@rub.edu",
+        membertype: "Student",
+        date: "2025-03-11 09:15",
+      },
+      {
+        name: "Jigme Wangmo",
+        email:"12210033.gcit@rub.edu",
+        membertype: "Staff",
+        date: "2025-03-11 17:00",
+      },
+      {
+        name: "Sonam Wangmo",
+        email:"12210064.gcit@rub.edu",
+        membertype: "Staff",
+        date: "2025-03-12 08:00",
+      },
+    ];
 
+    const container = document.getElementById("student-movement-log");
+    const itemsPerPage = 10;
+    let currentPage = 1;
+    let currentDeleteIndex = -1;
+
+    function displayItems(page) {
+      container.innerHTML = '';
+      const startIndex = (page - 1) * itemsPerPage;
+      const endIndex = Math.min(startIndex + itemsPerPage, movements.length);
+      const paginatedItems = movements.slice(startIndex, endIndex);
+
+      paginatedItems.forEach((movement, index) => {
+        const item = document.createElement("div");
+        item.className = "movement-item";
+        item.innerHTML = `
+            <div class="col-2 text-center"><i class="fas fa-user" style="color: rgb(227, 88, 33);font-size:18px;"></i></div>
+            <div class="col-3">${movement.name}</div>
+            <div class="col-4">${movement.email}</div>
+            <div class="col-2">${movement.membertype}</div>
+            <div class="col-2">
+              <i class="bi bi-pencil-square mx-2" title="Edit" style="color:green"></i>
+              <i class="bi bi-trash mx-2" title="Delete" style="color:red" data-index="${startIndex + index}"></i>
+            </div>
+            `;
+        container.appendChild(item);
+      });
+
+      document.querySelectorAll('.bi-trash').forEach(button => {
+        button.addEventListener('click', function() {
+          currentDeleteIndex = parseInt(this.getAttribute('data-index'));
+          const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+          deleteModal.show();
+        });
+      });
+
+      updatePagination();
+    }
+
+    function updatePagination() {
+      const totalPages = Math.ceil(movements.length / itemsPerPage);
+      const paginationContainer = document.querySelector('.pagination');
+      paginationContainer.innerHTML = '';
+
+      const prevLi = document.createElement('li');
+      prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+      prevLi.innerHTML = `<a class="page-link" href="#"><i class="bi bi-arrow-left"></i> Previous</a>`;
+      prevLi.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentPage > 1) {
+          currentPage--;
+          displayItems(currentPage);
+        }
+      });
+      paginationContainer.appendChild(prevLi);
+
+      for (let i = 1; i <= totalPages; i++) {
+        const pageLi = document.createElement('li');
+        pageLi.className = `page-item ${i === currentPage ? 'active' : ''}`;
+        pageLi.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+        pageLi.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentPage = i;
+          displayItems(currentPage);
+        });
+        paginationContainer.appendChild(pageLi);
+      }
+
+      const nextLi = document.createElement('li');
+      nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+      nextLi.innerHTML = `<a class="page-link" href="#">Next <i class="bi bi-arrow-right"></i></a>`;
+      nextLi.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+          currentPage++;
+          displayItems(currentPage);
+        }
+      });
+      paginationContainer.appendChild(nextLi);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      displayItems(currentPage);
+      
+      const addEquipmentBtn = document.getElementById('addEquipmentBtn');
+      const equipmentForm = document.getElementById('equipmentForm');
+      const addEquipmentModal = new bootstrap.Modal(document.getElementById('addEquipmentModal'));
+      const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+      const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+  
+      confirmDeleteBtn.addEventListener('click', function() {
+        if (currentDeleteIndex >= 0 && currentDeleteIndex < movements.length) {
+          movements.splice(currentDeleteIndex, 1);
+          
+          const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
+          deleteModal.hide();
+          
+          successModal.show();
+          
+          displayItems(currentPage);
+          
+          currentDeleteIndex = -1;
+        }
+      });
+    });
+  </script>
+</body>
 </html>
