@@ -6,13 +6,13 @@ async function sendOTP(email) {
       const res = await axios.post("http://localhost:4001/api/v1/users/register", { email });
   
       if (res.data.status === "success") {
-        showAlert("success", "OTP sent to your email.");
+        showAlert("success", res.data.message);
         setTimeout(() => {
-          location.assign("verifyotp");
+          location.assign("/verifyotp");
         }, 1000);
       }
     } catch (err) {
-      showAlert("error", "Error sending OTP.");
+      showAlert("error", res.data.message);
     }
   }
   
@@ -22,14 +22,14 @@ async function sendOTP(email) {
       const res = await axios.post("http://localhost:4001/api/v1/users/register", { email, otp });
   
       if (res.data.status === "success") {
-        showAlert("success", "OTP verified,it will be ur default password!");
+        showAlert("success",res.data.message);
         setTimeout(() => {
           location.assign("/");
         }, 1500);
       }
     } catch (err) {
-      showAlert("error", "Invalid OTP.");
-    }
+      const message = err.response?.data?.message || "Error logging out!";
+      showAlert('error', message);   }
   }
   
 

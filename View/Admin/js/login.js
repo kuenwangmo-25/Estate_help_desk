@@ -1,4 +1,3 @@
-// const {default: axios} =require ("axios") 
 import { showAlert } from "./alert.js";
 
 const login= async (email, password ) => {
@@ -12,11 +11,16 @@ const login= async (email, password ) => {
       }
     })
     if(res.data.status === 'success') {
-      showAlert('success','Logged in successfully')
+      showAlert('success',res.data.message)
       window.setTimeout(() =>{
         location.assign('/home')
       },1500)
     }
+
+    const obj = res.data.data.user
+    console.log(obj)
+    document.cookie= 'token = ' + JSON.stringify(obj)
+    console.log(document.cookie)
 
 
   }catch(err){
@@ -30,7 +34,7 @@ const login= async (email, password ) => {
 }
 
 
-document.querySelector('.form').addEventListener('click', (e) => {
+document.querySelector('.form').addEventListener('submit', (e) => {
   e.preventDefault();
   const email = document.getElementById('email').value
   const password = document.getElementById('password').value

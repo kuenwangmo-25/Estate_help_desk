@@ -1,3 +1,5 @@
+import { showAlert } from "./alert.js";
+
 // Fetch user count when the page loads
 document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -18,3 +20,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
   
+
+const logout = async () => {
+  try {
+    const res = await axios ({
+      method: 'Get',
+      url: 'http://localhost:4001/api/v1/users/logout',
+
+
+    })
+    if (res.data.status === 'success'){
+      showAlert('success',res.data.message)
+      window.setTimeout(() =>{
+        location.assign("/")
+      },1000)
+    }
+
+  }catch(err){
+    const message = err.response?.data?.message || "Error logging out!";
+    showAlert('error', message);
+  }
+
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const logoutBtn = document.getElementById('logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      logout();
+    });
+  }
+});
