@@ -11,7 +11,7 @@ const login= async (email, password ) => {
       }
     })
     if(res.data.status === 'success') {
-      showAlert('success',res.data.message)
+      showAlert('success','Login successful')
       window.setTimeout(() =>{
         location.assign('/home')
       },1500)
@@ -28,7 +28,7 @@ const login= async (email, password ) => {
     typeof err.response !== 'undefined'
     ? err.response.data.message
     : err.message;
-    showAlert('error', 'Error: Incorrect email or password',message)
+    showAlert('error', 'Incorrect email or password',message)
 
   }
 }

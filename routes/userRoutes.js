@@ -19,7 +19,8 @@ router.get("/getallcategories", equipmentController.getAllCategories)
 router.get("/getusercount",userController.getUserCount)
 router.post("/Status",equipmentController.createStatus)
 router.get("/getallstatus",equipmentController.getAllStatus)
-router.get("/me", authController.protect)
+router.get("/me", authController.protect,userController.getUser)
+router.patch("/updatePassword", authController.protect, authController.updatePassword)
 
 // ISUUE
 router.post("/issue",issueController.createIssue)

@@ -1,6 +1,7 @@
 const  User = require('./../Model/userModel')
 const multer = require("multer");
 const xlsx = require("xlsx");
+const AppError = require('../utils/appError');
 
 // Multer storage for handling Excel uploads
 const storage = multer.memoryStorage();
@@ -57,14 +58,14 @@ exports.bulkUploadUsers = async (req, res) => {
 // Multer middleware for file upload
 exports.uploadExcel = upload.single("file");
 
-exports.getUser= async(req,res) =>{
+exports.getUser = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        res.json({data:user, status:"success"});
-    }catch(err){
-        res.status(500).json({message:err.message});
+      const user = req.user; // added by the middleware
+      res.status(200).json({ data: user, status: "success" });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
     }
-}
+  };
 
 exports.updateUser = async(req,res) => {
     try{
@@ -96,6 +97,7 @@ exports.findUserByEmail = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
 exports.getUserCount = async (req, res) => {
     try {
         const count = await User.countDocuments(); // Get total count of users

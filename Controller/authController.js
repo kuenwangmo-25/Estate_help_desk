@@ -73,7 +73,7 @@ const generateOTP = () => {
             await user.save();
 
             await sendOTPEmail(email, generatedOTP);
-            return res.json({ message: "OTP sent successfully" });
+            return res.status(200).json({ status: "success",message: "OTP sent successfully" });
         }
 
         if (Date.now() > user.otpExpires) {
@@ -127,7 +127,9 @@ exports.login = async (req, res, next) => {
 
 
 exports.adminlogin = async (req, res) => {
+
     try {
+        console.log(req.headers)
       const { email, password } = req.body;
   
       // Check if user exists
@@ -158,15 +160,38 @@ exports.logout =  (req, res) => {
         expires: new Date(Date.now() + 10 * 1000),
         httpOnly: true,
     })
-    res.status(200).json({ message: "Logged out successfully!" })
+    res.status(200).json({ status: "success", message: "Logged out successfully!" })
 }
+
+
+
+exports.updatePassword = async (req, res, next)  =>  {
+    try{
+
+        const user = await User.findById(req.user.id).select('+password')
+
+        if (!(await user.correctPassword(req.body.passwordCurrent, user.password))){
+            return next(new AppError('Your current password is wrong', 401))
+        }
+        user.password = req.body.password
+        user.passwordConfirm = req.body.passwordConfirm
+        await user.save()
+
+        createSendToken(user,200,res)
+
+    }catch(err){
+        res.status(500).json({error:err.message})
+    }
+};
 
 exports.protect = async(req, res, next) => {
     try{
         // getting token and check if it is there
         let token
         if(
-            req.headers.authorization && req.headers.authorization.startsWith("Bearer")
+            // req.headers.authorization && req.headers.authorization.startsWith("Bearer")
+            req.headers.authorization?.startsWith("Bearer")
+
         ){
             token = req.headers.authorization.split(' ')[1]
         }else if(req.cookies.jwt){
@@ -179,7 +204,8 @@ exports.protect = async(req, res, next) => {
             )
         }
         const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
-  
+        console.log(decoded)
+
         const freshUser= await User.findById(decoded.id)
         if(!freshUser) {
             return next(
