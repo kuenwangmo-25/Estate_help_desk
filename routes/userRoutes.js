@@ -25,7 +25,7 @@ router.patch("/updatePassword", authController.protect, authController.updatePas
 // ISUUE
 router.post("/issue",issueController.createIssue)
 router.post("/feedback", issueController.createFeedback)
-router.get("/getallfeedback", issueController.getAllFeedback)
+router.get("/getallfeedback",authController.protect, issueController.getAllFeedback)
 
 // Feedback
 router
