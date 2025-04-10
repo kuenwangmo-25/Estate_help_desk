@@ -16,3 +16,6 @@ exports.otpform = (req,res) => {
     res.sendFile(path.join(__dirname, '../','View', 'Admin',"pages", 'OTPemail.html'))
 }
 
+exports.feecback = (req,res) => {
+    res.sendFile(path.join(__dirname, '../','View', 'Admin',"pages", 'Feedback.html'))
+}
