@@ -12,7 +12,7 @@ router.get("/logout",authController.logout)
 // Admin
 router.post("/admin-login", authController.adminlogin);
 router.post("/bulkUpload", userController.uploadExcel, userController.bulkUploadUsers);
-router.post("/equipment", equipmentController.createEquipment)
+router.post("/equipment", authController.protect, equipmentController.createEquipment)
 router.get('/getallequipments', equipmentController.getAllEquipment)
 router.post("/category",equipmentController.createCategory)
 router.get("/getallcategories", equipmentController.getAllCategories)
@@ -25,7 +25,7 @@ router.patch("/updatePassword", authController.protect, authController.updatePas
 // ISUUE
 router.post("/issue",issueController.createIssue)
 router.post("/feedback", issueController.createFeedback)
-router.get("/getallfeedback",authController.protect, issueController.getAllFeedback)
+router.get("/getallfeedback", authController.protect, issueController.getAllFeedback)
 
 // Feedback
 router

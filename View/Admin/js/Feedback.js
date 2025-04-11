@@ -25,7 +25,7 @@ const allFeedbacks = async () => {
       allFeedbacks(); // Refresh the list after deletion
     } catch (err) {
       console.error('Error deleting feedback:', err);
-      showAlert('Failed to delete feedback');
+      showAlert('failed','Failed to delete feedback');
     }
   };
 

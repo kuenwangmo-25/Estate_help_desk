@@ -19,3 +19,9 @@ exports.otpform = (req,res) => {
 exports.feecback = (req,res) => {
     res.sendFile(path.join(__dirname, '../','View', 'Admin',"pages", 'Feedback.html'))
 }
+
+exports.issuelist = (req,res) => {
+    res.sendFile(path.join(__dirname, '../','View', 'Admin',"pages", 'issueList.html'))
+}
+
+

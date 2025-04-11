@@ -28,7 +28,7 @@ exports.createEquipment = async (req,res) => {
     try {
         const equipment = await Equipment.create(req.body);
         console.log(req.body.name)
-        res.json ({data: equipment, status:"Equipment name added successfully"});
+        res.json ({data: equipment, status:"successful"});
     }catch(err){
         res.status(500).json({message:err.message});
 
